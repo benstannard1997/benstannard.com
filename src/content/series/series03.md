@@ -1,5 +1,5 @@
 ---
-title: Sereies 3
+title: Series 3
 index: "03"
 year: "2025"
 location: LOCATION 3
