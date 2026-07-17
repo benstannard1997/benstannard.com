@@ -65,9 +65,8 @@ const home = defineCollection({
     caption: z
       .object({
         author: z.string().optional(),
-        /** Desktop shows the full line; mobile shows the short one. */
-        location: z.string().optional(),
-        locationShort: z.string().optional(),
+        /** Whatever free text you want under the photo — no fixed format. */
+        title: z.string().optional(),
         place: z.string().optional(),
       })
       .optional(),

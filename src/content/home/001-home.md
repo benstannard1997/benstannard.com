@@ -7,5 +7,5 @@ image:
   alt: Landing Stage
 caption:
   author: Ben Stannard
-  location: Czech Republic - Turbine Level
+  title: Czech Republic - Turbine Level
 ---

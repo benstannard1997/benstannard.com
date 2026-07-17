@@ -7,5 +7,5 @@ image:
   alt: Eyes
 caption:
   author: Ben Stannard
-  location: Wales — Exit fire
+  title: Wales — Exit fire
 ---

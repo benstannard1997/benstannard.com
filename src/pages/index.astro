@@ -14,7 +14,6 @@ const raw = (await getCollection('home'))
 
 const photos = raw.map((entry, i) => {
   const { data } = entry;
-  const location = data.caption?.location || data.caption?.locationShort || 'Untitled';
   return {
     index: data.index || String(i + 1).padStart(3, '0'),
     image: {
@@ -23,8 +22,7 @@ const photos = raw.map((entry, i) => {
     },
     caption: {
       author: data.caption?.author || 'Ben Stannard',
-      location,
-      locationShort: data.caption?.locationShort || location,
+      title: data.caption?.title || '',
       place: data.caption?.place || data.year || '',
     },
   };

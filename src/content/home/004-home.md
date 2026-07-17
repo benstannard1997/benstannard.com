@@ -6,5 +6,5 @@ image:
   src: https://live.staticflickr.com/65535/53550893001_12b75429c9_h.jpg
 caption:
   author: Ben Stannard
-  location: Wales — Final stages
+  title: Wales — Final stages
 ---

@@ -4,7 +4,7 @@ import Photo from './Photo.astro';
 interface HomePhoto {
   index: string;
   image: { src: string | null; alt: string };
-  caption: { author: string; location: string; locationShort: string; place: string };
+  caption: { author: string; title: string; place: string };
 }
 
 interface Props {
@@ -44,9 +44,8 @@ const hasMultiple = photos.length > 1;
             </a>
             <figcaption class="caption">
               <div>{photo.caption.author}</div>
-              <div class="caption__location">{photo.caption.location}</div>
-              <div class="caption__location caption__location--short">{photo.caption.locationShort}</div>
-              <div>{photo.caption.place}</div>
+              {photo.caption.title && <div>{photo.caption.title}</div>}
+              {photo.caption.place && <div>{photo.caption.place}</div>}
             </figcaption>
           </figure>
         ))
@@ -123,10 +122,6 @@ const hasMultiple = photos.length > 1;
     color: var(--caption);
   }
 
-  .caption__location--short {
-    display: none;
-  }
-
   @media (max-width: 480px) {
     .home-carousel {
       display: block;
@@ -167,14 +162,6 @@ const hasMultiple = photos.length > 1;
     .caption {
       margin-top: 14px;
       font-size: 10px;
-    }
-
-    .caption__location {
-      display: none;
-    }
-
-    .caption__location--short {
-      display: block;
     }
   }
 </style>
