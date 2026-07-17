@@ -1,13 +1,11 @@
 ---
 index: "001"
-year: "2025"
+year: "2026"
 order: 1
 image:
-  src: null
-  alt: Stanage Edge, Peak District
+  src: https://live.staticflickr.com/65535/55169448667_881edbef41_h.jpg?s=eyJpIjo1NTE2OTQ0ODY2NywiZSI6MTc4NDMwNjA5NCwicyI6ImY3M2I4OGY1ZTk5YjRiNTc0NDIyZTY4NWI2NTViNjlkM2U1NGQ2MGUiLCJ2IjoxfQ
+  alt: Landing Stage
 caption:
   author: Ben Stannard
-  location: Blah Edge — Coordinates 53°21′05″N 1°38′08″W
-  locationShort: Stanage Edge — 53°21′05″N 1°38′08″W
-  place: Peak District, England, 2025
+  location: Czech Republic - Turbine Level
 ---
