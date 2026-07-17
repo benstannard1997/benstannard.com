@@ -60,9 +60,11 @@ const first = photos[0];
   }
 
   /* Reserve the photo's height so a short viewport grows the frame instead of
-     letting the header and footer collide with the photograph. */
+     letting the header and footer collide with the photograph. Sized for a
+     square 560px photo (560 + ~90px of caption) now that images render at
+     their own aspect ratio instead of being cropped into a 4:3 box. */
   :global(.main:has(.featured)) {
-    min-height: 520px;
+    min-height: 660px;
   }
 
   @media (max-width: 480px) {

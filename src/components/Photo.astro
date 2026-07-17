@@ -2,9 +2,13 @@
 interface Props {
   src: string | null;
   alt: string;
-  /** CSS aspect-ratio for the placeholder and for cover-fitted images. */
+  /** CSS aspect-ratio for the no-photo placeholder box. The photography here is square. */
   ratio?: string;
-  /** `contain` letterboxes — right for mixed-aspect Flickr photos in a carousel. */
+  /**
+   * `contain` (the default) never crops — a real photo renders at its own
+   * natural aspect ratio, full stop. Pass `cover` to opt into forcing `ratio`
+   * onto the image instead, cropping to fill it.
+   */
   fit?: 'cover' | 'contain';
   loading?: 'lazy' | 'eager';
   /** Text inside the stripe placeholder. Ignored once `src` is set. */
@@ -15,8 +19,8 @@ interface Props {
 const {
   src,
   alt,
-  ratio = '4 / 3',
-  fit = 'cover',
+  ratio = '1 / 1',
+  fit = 'contain',
   loading = 'lazy',
   placeholderLabel = 'Featured photograph',
   class: className,
