@@ -11,6 +11,12 @@ interface Props {
    */
   fit?: 'cover' | 'contain';
   loading?: 'lazy' | 'eager';
+  /**
+   * Hint for the browser's fetch scheduler — doesn't affect `loading`, only
+   * how it's prioritised against other in-flight requests. Used to keep a
+   * carousel's off-screen slides from competing with the visible one.
+   */
+  fetchpriority?: 'high' | 'low' | 'auto';
   /** Text inside the stripe placeholder. Ignored once `src` is set. */
   placeholderLabel?: string;
   class?: string;
@@ -22,6 +28,7 @@ const {
   ratio = '1 / 1',
   fit = 'contain',
   loading = 'lazy',
+  fetchpriority = 'auto',
   placeholderLabel = 'Featured photograph',
   class: className,
 } = Astro.props;
@@ -34,6 +41,7 @@ const {
       src={src}
       alt={alt}
       loading={loading}
+      fetchpriority={fetchpriority}
       decoding="async"
       style={fit === 'cover' ? `aspect-ratio: ${ratio};` : undefined}
     />

@@ -2,7 +2,6 @@
 title: Series 4
 index: "04"
 year: "2025"
-location: LOCATION 4
 order: 4
 summary: Commissioned portraits, made in people's own rooms and workshops.
 images:
