@@ -3,10 +3,32 @@ import { getCollection } from 'astro:content';
 import Frame from '../layouts/Frame.astro';
 import HomeCarousel from '../components/HomeCarousel.astro';
 
-// The design holds four hero photos at most.
-const photos = (await getCollection('home'))
-  .sort((a, b) => a.data.order - b.data.order)
+// The design holds four hero photos at most. Every frontmatter field on this
+// collection is optional (see content.config.ts), so a raw entry might be
+// missing anything below — fall back to something sane for each, including
+// the position-dependent ones (index, order) a single file's schema can't
+// default on its own.
+const raw = (await getCollection('home'))
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
   .slice(0, 4);
+
+const photos = raw.map((entry, i) => {
+  const { data } = entry;
+  const location = data.caption?.location || data.caption?.locationShort || 'Untitled';
+  return {
+    index: data.index || String(i + 1).padStart(3, '0'),
+    image: {
+      src: data.image?.src ?? null,
+      alt: data.image?.alt || 'Featured photograph',
+    },
+    caption: {
+      author: data.caption?.author || 'Ben Stannard',
+      location,
+      locationShort: data.caption?.locationShort || location,
+      place: data.caption?.place || data.year || '',
+    },
+  };
+});
 
 // Server-rendered fallback for when JS is off — the client script picks a
 // random one of these on load and takes over from there.
@@ -15,7 +37,7 @@ const first = photos[0];
 
 <Frame
   title="Ben Stannard — Photography, Sheffield UK"
-  indexLabel={`INDEX ${first.data.index}`}
+  indexLabel={`INDEX ${first.index}`}
   indexHref="/series"
   midLeft={{ label: 'UNTITLED (PROFILE)', href: '/about' }}
   midRight={{ label: 'WORK ↗', href: '/series' }}

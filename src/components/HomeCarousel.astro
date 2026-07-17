@@ -1,9 +1,14 @@
 ---
-import type { CollectionEntry } from 'astro:content';
 import Photo from './Photo.astro';
 
+interface HomePhoto {
+  index: string;
+  image: { src: string | null; alt: string };
+  caption: { author: string; location: string; locationShort: string; place: string };
+}
+
 interface Props {
-  photos: CollectionEntry<'home'>[];
+  photos: HomePhoto[];
 }
 
 const { photos } = Astro.props;
@@ -23,15 +28,15 @@ const hasMultiple = photos.length > 1;
     <div class="home-carousel__stage">
       {
         photos.map((photo, i) => (
-          <figure class="slide" data-slide data-index={photo.data.index} hidden={i !== 0}>
+          <figure class="slide" data-slide data-index={photo.index} hidden={i !== 0}>
             <a class="slide__link" href="/series" aria-label="View work">
-              <Photo src={photo.data.image.src} alt={photo.data.image.alt} loading={i === 0 ? 'eager' : 'lazy'} />
+              <Photo src={photo.image.src} alt={photo.image.alt} loading={i === 0 ? 'eager' : 'lazy'} />
             </a>
             <figcaption class="caption">
-              <div>{photo.data.caption.author}</div>
-              <div class="caption__location">{photo.data.caption.location}</div>
-              <div class="caption__location caption__location--short">{photo.data.caption.locationShort}</div>
-              <div>{photo.data.caption.place}</div>
+              <div>{photo.caption.author}</div>
+              <div class="caption__location">{photo.caption.location}</div>
+              <div class="caption__location caption__location--short">{photo.caption.locationShort}</div>
+              <div>{photo.caption.place}</div>
             </figcaption>
           </figure>
         ))
