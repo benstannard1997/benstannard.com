@@ -6,6 +6,5 @@ image:
   src: https://live.staticflickr.com/65535/53551447606_6d8e18d992_h.jpg
   alt: Eyes
 caption:
-  author: Ben Stannard
   title: Eyes
 ---
