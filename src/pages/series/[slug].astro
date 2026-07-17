@@ -15,6 +15,17 @@ export const getStaticPaths = (async () => {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, index, year, location, summary, images } = entry.data;
+
+// Every field on an image entry is optional (see content.config.ts) — fall
+// back to something sane for `alt`/`title` so a photo dropped in without
+// captioning it yet still builds and still has real accessible text.
+const normalizedImages = images.map((image, i) => ({
+  src: image.src ?? null,
+  alt: image.alt || `${title} — photograph ${i + 1}`,
+  title: image.title || `Photograph ${String(i + 1).padStart(2, '0')}`,
+  description: image.description,
+  href: image.href,
+}));
 ---
 
 <Frame
@@ -31,7 +42,7 @@ const { title, index, year, location, summary, images } = entry.data;
     </p>
   </header>
 
-  <Carousel images={images} label={title} />
+  <Carousel images={normalizedImages} label={title} />
 
   <div class="prose">
     <Content />

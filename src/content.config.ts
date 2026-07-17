@@ -16,16 +16,20 @@ const series = defineCollection({
     order: z.number(),
     /** One-line summary for the series index. The markdown body is the long form. */
     summary: z.string(),
+    // Only `src` and `alt` matter for real content, and even those are
+    // optional here — a missing `src` renders the stripe placeholder and a
+    // missing `alt`/`title` gets a generated fallback in [slug].astro, so a
+    // half-filled-in image entry still builds rather than failing.
     images: z
       .array(
         z.object({
           /**
            * Flickr direct image URL, e.g. https://live.staticflickr.com/…_b.jpg
-           * `null` renders the stripe placeholder, as in the prototype.
+           * `null` or omitted renders the stripe placeholder, as in the prototype.
            */
-          src: z.url().nullable(),
-          alt: z.string(),
-          title: z.string(),
+          src: z.url().nullable().optional(),
+          alt: z.string().optional(),
+          title: z.string().optional(),
           description: z.string().optional(),
           /** Flickr photo page, linked from the carousel caption. */
           href: z.url().optional(),
