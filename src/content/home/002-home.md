@@ -6,6 +6,5 @@ image:
   src: https://live.staticflickr.com/65535/55400185399_88fc40a974_h.jpg
   alt: Earth Eater
 caption:
-  author: Ben Stannard
   title: Earth Eater
 ---
