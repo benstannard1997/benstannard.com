@@ -5,7 +5,7 @@ year: "2026"
 order: 4
 summary: Eternal pipemare
 images:
-  - src: https://live.staticflickr.com/65535/54198711189_2e8676c1b2_h.jpg
+  - src: https://live.staticflickr.com/65535/55139015028_1a571c854c_h.jpg
     title: Manifold 1
   - src: https://live.staticflickr.com/65535/55138040707_289a1688d7_h.jpg
     title: Manifold 2
