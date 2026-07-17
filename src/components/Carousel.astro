@@ -17,6 +17,14 @@ interface Props {
 const { images, label } = Astro.props;
 const total = String(images.length).padStart(2, '0');
 const hasMultiple = images.length > 1;
+
+// Preload every slide up front so Next/Prev never has to wait on a network
+// request — a hidden (display:none) slide with `loading="lazy"` never starts
+// fetching until it's revealed, which is exactly the delay this avoids.
+// Capped so a hypothetical very large series doesn't eager-load dozens of
+// full-size photos at once; beyond the cap, slides fall back to the original
+// load-when-revealed behaviour.
+const EAGER_LIMIT = 8;
 ---
 
 <section
@@ -43,7 +51,8 @@ const hasMultiple = images.length > 1;
                 src={image.src}
                 alt={image.alt}
                 fit="contain"
-                loading={i === 0 ? 'eager' : 'lazy'}
+                loading={i < EAGER_LIMIT ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : 'low'}
                 placeholderLabel={`Photograph ${String(i + 1).padStart(2, '0')}`}
               />
             </div>

@@ -30,7 +30,17 @@ const hasMultiple = photos.length > 1;
         photos.map((photo, i) => (
           <figure class="slide" data-slide data-index={photo.index} hidden={i !== 0}>
             <a class="slide__link" href="/series" aria-label="View work">
-              <Photo src={photo.image.src} alt={photo.image.alt} loading={i === 0 ? 'eager' : 'lazy'} />
+              {/* All four load eagerly — a hidden (display:none) slide with
+                  `loading="lazy"` never starts fetching until it's revealed,
+                  which is exactly the delay-on-click this avoids. Only one of
+                  these ends up randomly shown, so `fetchpriority` keeps the
+                  other three from competing with it for bandwidth. */}
+              <Photo
+                src={photo.image.src}
+                alt={photo.image.alt}
+                loading="eager"
+                fetchpriority={i === 0 ? 'high' : 'low'}
+              />
             </a>
             <figcaption class="caption">
               <div>{photo.caption.author}</div>
