@@ -1,0 +1,127 @@
+---
+import Frame from '../layouts/Frame.astro';
+import Photo from '../components/Photo.astro';
+
+// Placeholder copy — for Ben to replace.
+const details = [
+  { term: 'Based', value: 'Sheffield, UK' },
+  { term: 'Works', value: 'Landscape, documentary, portraits' },
+  { term: 'Prints', value: 'Available on request' },
+];
+---
+
+<Frame
+  title="About — Ben Stannard"
+  description="Ben Stannard is a photographer based in Sheffield, UK."
+  indexLabel="PROFILE"
+>
+  <h1 class="page-label">Untitled (Profile)</h1>
+
+  <div class="about">
+    <div class="about__portrait">
+      <Photo
+        src={null}
+        alt="Ben Stannard"
+        ratio="3 / 4"
+        loading="eager"
+        placeholderLabel="Portrait"
+      />
+    </div>
+
+    <div class="about__text">
+      <div class="prose">
+        <p>
+          Ben Stannard is a photographer based in Sheffield. He works mostly within an hour of the
+          city — the eastern edges of the Peak District, the moors above them, and the streets in
+          between.
+        </p>
+        <p>
+          The work is made slowly and on foot, usually at the two ends of the day. He photographs
+          landscape and documentary subjects on commission, and takes on a small number of portrait
+          commissions each year.
+        </p>
+        <p>
+          For enquiries, prints, or commissions, see <a href="/contact">contact</a>.
+        </p>
+      </div>
+
+      <dl class="details label">
+        {
+          details.map((detail) => (
+            <div class="details__row">
+              <dt>{detail.term}</dt>
+              <dd>{detail.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</Frame>
+
+<style>
+  .about {
+    display: flex;
+    gap: 56px;
+    align-items: flex-start;
+    margin-bottom: 56px;
+  }
+
+  .about__portrait {
+    flex: none;
+    width: 260px;
+  }
+
+  .about__text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .details {
+    margin: 40px 0 0;
+    border-top: 1px solid var(--ink);
+    max-width: 560px;
+  }
+
+  .details__row {
+    display: flex;
+    gap: 24px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .details__row:last-child {
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .details dt {
+    width: 120px;
+    flex: none;
+    text-transform: uppercase;
+  }
+
+  .details dd {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  @media (max-width: 480px) {
+    .about {
+      display: block;
+      margin-bottom: 32px;
+    }
+
+    .about__portrait {
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .details {
+      margin-top: 32px;
+    }
+
+    .details dt {
+      width: 90px;
+    }
+  }
+</style>

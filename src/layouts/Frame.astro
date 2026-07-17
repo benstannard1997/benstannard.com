@@ -1,0 +1,237 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Bottom-left slot. The homepage puts its photo index here. */
+  indexLabel?: string;
+  indexHref?: string;
+  /** Bottom-right slot. */
+  yearLabel?: string;
+  /**
+   * Desktop-only mid-edge labels, dropped below 480px per the handoff. They sit
+   * on top of the content at the vertical centre, so only pages whose content is
+   * centred and narrower than the frame — i.e. the homepage — can carry them.
+   */
+  midLeft?: { label: string; href: string };
+  midRight?: { label: string; href: string };
+}
+
+const {
+  title,
+  description = 'Photography by Ben Stannard — Sheffield, UK.',
+  indexLabel,
+  indexHref,
+  yearLabel = `${site.year} →`,
+  midLeft,
+  midRight,
+} = Astro.props;
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => path === href;
+---
+
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame">
+      <header class="header">
+        <a class="wordmark" href="/">{site.wordmark}</a>
+        <span class="tagline">{site.tagline}</span>
+      </header>
+
+      {
+        midLeft && (
+          <a class="label mid mid--left" href={midLeft.href}>
+            {midLeft.label}
+          </a>
+        )
+      }
+      {
+        midRight && (
+          <a class="label mid mid--right" href={midRight.href}>
+            {midRight.label}
+          </a>
+        )
+      }
+
+      <main class="main">
+        <slot />
+      </main>
+
+      <footer class="footer">
+        <div class="footer__index label">
+          {
+            indexLabel &&
+              (indexHref ? <a href={indexHref}>{indexLabel}</a> : <span>{indexLabel}</span>)
+          }
+        </div>
+        <nav class="footer__nav label" aria-label="Primary">
+          {
+            site.nav.map((item) => (
+              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+        <div class="footer__year label">{yearLabel}</div>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  /* The frame is a real box in flow rather than an absolutely-inset decoration,
+     so pages whose content outgrows the viewport push it taller instead of
+     scrolling underneath a fixed rule. At homepage size it lands exactly on the
+     40px inset the handoff specifies. */
+  .frame {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: var(--frame-inset);
+    padding: var(--frame-pad-y) var(--content-inset);
+    border: 1px solid var(--ink);
+    min-height: calc(100vh - (2 * var(--frame-inset)));
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+  }
+
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 4px;
+  }
+
+  .tagline {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Vertically centred against the frame's side rules. The frame is symmetric
+     about the page centre, so centring here is centring in the page. */
+  .mid {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .mid--left {
+    left: var(--content-inset);
+  }
+
+  .mid--right {
+    right: var(--content-inset);
+  }
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+  }
+
+  .footer__nav {
+    display: flex;
+    gap: 28px;
+  }
+
+  .footer__index,
+  .footer__year {
+    flex: 1;
+  }
+
+  .footer__year {
+    text-align: right;
+  }
+
+  @media (max-width: 480px) {
+    .header {
+      display: block;
+    }
+
+    .wordmark {
+      display: inline-block;
+      font-size: 14px;
+      letter-spacing: 3px;
+    }
+
+    .tagline {
+      display: block;
+      font-size: 10px;
+      margin-top: 4px;
+    }
+
+    /* Mid-edge labels don't fit; their destinations live in the footer nav. */
+    .mid {
+      display: none;
+    }
+
+    /* Grid rather than flex: the nav has to lead on mobile even though it sits
+       between the index and year labels in the DOM. */
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        'nav nav'
+        'index year';
+      border-top: 1px solid var(--ink);
+      padding-top: 12px;
+    }
+
+    .footer__nav {
+      grid-area: nav;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      margin-bottom: 12px;
+    }
+
+    .footer__index {
+      grid-area: index;
+    }
+
+    .footer__year {
+      grid-area: year;
+    }
+
+    .footer__index,
+    .footer__year {
+      color: var(--muted);
+    }
+  }
+</style>

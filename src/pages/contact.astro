@@ -1,0 +1,84 @@
+---
+import Frame from '../layouts/Frame.astro';
+import { site } from '../data/site';
+
+const links = [
+  { term: 'Email', label: site.contact.email, href: `mailto:${site.contact.email}` },
+  { term: 'Instagram', label: 'Instagram ↗', href: site.contact.instagram, external: true },
+  { term: 'Flickr', label: 'Flickr ↗', href: site.contact.flickr, external: true },
+];
+---
+
+<Frame
+  title="Contact — Ben Stannard"
+  description="Contact Ben Stannard for commissions, prints, and enquiries."
+  indexLabel="ENQUIRIES"
+>
+  <h1 class="page-label">Contact</h1>
+
+  <div class="prose">
+    <p>
+      For commissions, prints, and press enquiries, email is best. I read everything and reply to
+      most things within a week.
+    </p>
+  </div>
+
+  <dl class="links label">
+    {
+      links.map((link) => (
+        <div class="links__row">
+          <dt>{link.term}</dt>
+          <dd>
+            <a
+              href={link.href}
+              rel={link.external ? 'noopener' : undefined}
+              target={link.external ? '_blank' : undefined}
+            >
+              {link.label}
+            </a>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</Frame>
+
+<style>
+  .links {
+    margin: 40px 0 56px;
+    border-top: 1px solid var(--ink);
+    max-width: 560px;
+  }
+
+  .links__row {
+    display: flex;
+    gap: 24px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .links__row:last-child {
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .links dt {
+    width: 120px;
+    flex: none;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .links dd {
+    margin: 0;
+  }
+
+  @media (max-width: 480px) {
+    .links {
+      margin: 32px 0;
+    }
+
+    .links dt {
+      width: 90px;
+    }
+  }
+</style>

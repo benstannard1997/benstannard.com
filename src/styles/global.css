@@ -1,0 +1,152 @@
+/* Design tokens — from the handoff. White page, black type, all colour comes
+   from the photography. No accent colours, no radius, no shadows. */
+:root {
+  --page: #ffffff;
+  --ink: #000000;
+  --muted: #555555;
+  --caption: #111111;
+
+  /* Photo placeholder only — remove once every photo is a real image. */
+  --ph-stripe-a: #ededeb;
+  --ph-stripe-b: #e2e2df;
+  --ph-border: #d0d0cc;
+  --ph-label: #9a9a96;
+
+  /* Hairline used to separate list rows. */
+  --rule-soft: #cfcfcc;
+
+  --font-display: 'Oxanium', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+
+  --frame-inset: 40px;
+  --content-inset: 16px;
+  --frame-pad-y: 14px;
+}
+
+@media (max-width: 480px) {
+  :root {
+    --frame-inset: 16px;
+    --content-inset: 22px;
+    --frame-pad-y: 20px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--page);
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Keyboard users get the underline too — hover-only would strand them. */
+a:focus-visible {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* The marginal label: every piece of UI text on the site is one of these. */
+.label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 480px) {
+  .label {
+    font-size: 11px;
+  }
+}
+
+.label--muted {
+  color: var(--muted);
+}
+
+/* Interior pages announce themselves with a label, not a headline — the
+   wordmark in the frame header is the only display type on the site. */
+.page-label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 56px 0 20px;
+}
+
+@media (max-width: 480px) {
+  .page-label {
+    font-size: 11px;
+    margin: 32px 0 16px;
+  }
+}
+
+/* Body copy. Monospace at a long line-height keeps prose reading as another
+   marginal label rather than as an article. */
+.prose {
+  max-width: 560px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.9;
+  letter-spacing: 0.5px;
+  color: var(--caption);
+}
+
+.prose p {
+  margin: 0 0 1.2em;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .prose {
+    font-size: 10px;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

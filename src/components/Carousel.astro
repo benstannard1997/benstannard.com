@@ -1,0 +1,206 @@
+---
+import Photo from './Photo.astro';
+
+interface Image {
+  src: string | null;
+  alt: string;
+  title: string;
+  description?: string;
+  href?: string;
+}
+
+interface Props {
+  images: Image[];
+  label: string;
+}
+
+const { images, label } = Astro.props;
+const total = String(images.length).padStart(2, '0');
+---
+
+<section
+  class="carousel"
+  data-carousel
+  aria-roledescription="carousel"
+  aria-label={`${label} — photographs`}
+>
+  <div class="carousel__stage">
+    {
+      images.map((image, i) => (
+        <figure class="slide" data-slide hidden={i !== 0}>
+          <div class="slide__image">
+            <Photo
+              src={image.src}
+              alt={image.alt}
+              fit="contain"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              placeholderLabel={`Photograph ${String(i + 1).padStart(2, '0')}`}
+            />
+          </div>
+          <figcaption class="slide__caption">
+            <span class="slide__title">
+              {image.href ? (
+                <a href={image.href} rel="noopener" target="_blank">
+                  {image.title} ↗
+                </a>
+              ) : (
+                image.title
+              )}
+            </span>
+            {image.description && <span class="slide__description">{image.description}</span>}
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+
+  {
+    images.length > 1 && (
+      <div class="controls label">
+        <button type="button" data-prev>
+          ← PREV
+        </button>
+        <p class="counter" aria-live="polite">
+          <span data-current>01</span> / {total}
+        </p>
+        <button type="button" data-next>
+          NEXT →
+        </button>
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Matches the homepage's 560px featured photo, so a series reads as the same
+     picture in the same place — and so the controls stay above the fold. */
+  .carousel__stage {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .slide {
+    margin: 0;
+  }
+
+  .slide[hidden] {
+    display: none;
+  }
+
+  /* A fixed stage keeps the controls still while portrait and landscape frames
+     take turns — the photographs letterbox against white instead. */
+  .slide__image {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slide__image :global(.photo) {
+    max-height: 100%;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .slide__image :global(.placeholder) {
+    height: 100%;
+  }
+
+  .slide__caption {
+    text-align: center;
+    margin-top: 18px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.7;
+    letter-spacing: 0.5px;
+    color: var(--caption);
+  }
+
+  .slide__title {
+    display: block;
+  }
+
+  .slide__description {
+    display: block;
+    color: var(--muted);
+  }
+
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    width: 100%;
+    max-width: 560px;
+    margin-top: 22px;
+  }
+
+  .controls button {
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .controls button:hover,
+  .controls button:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .counter {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  @media (max-width: 480px) {
+    .slide__caption {
+      margin-top: 14px;
+      font-size: 10px;
+    }
+
+    .controls {
+      margin-top: 18px;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((carousel) => {
+    const slides = [...carousel.querySelectorAll<HTMLElement>('[data-slide]')];
+    const current = carousel.querySelector<HTMLElement>('[data-current]');
+    const prev = carousel.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = carousel.querySelector<HTMLButtonElement>('[data-next]');
+    if (slides.length < 2) return;
+
+    let index = 0;
+
+    const show = (to: number) => {
+      // Wrap in both directions so the ends are never dead.
+      index = (to + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        slide.hidden = i !== index;
+      });
+      if (current) current.textContent = String(index + 1).padStart(2, '0');
+    };
+
+    prev?.addEventListener('click', () => show(index - 1));
+    next?.addEventListener('click', () => show(index + 1));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      if (event.key === 'ArrowLeft') show(index - 1);
+      if (event.key === 'ArrowRight') show(index + 1);
+    });
+  });
+</script>

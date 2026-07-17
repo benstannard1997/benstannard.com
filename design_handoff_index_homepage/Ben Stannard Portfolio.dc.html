@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #c9c9c7; font-family: 'Oxanium', system-ui, sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #000; text-decoration: underline; text-underline-offset: 3px; }
+</style>
+</helmet>
+
+<section style="display:flex; flex-wrap:wrap; align-items:flex-start; gap:64px; padding:64px 64px 24px;">
+  <!-- ===================== TURN 2 — 1a ON MOBILE ===================== -->
+  <article id="2a" style="position:relative;">
+    <div style="position:absolute; top:-34px; left:0; display:flex; gap:12px; align-items:baseline; font-family:'Space Mono',monospace;">
+      <span style="background:#000; color:#fff; font-size:12px; letter-spacing:1px; padding:3px 9px;">2a</span>
+      <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#333;">Index — mobile (390px)</span>
+    </div>
+
+    <div style="width:390px; height:800px; background:#ffffff; position:relative; color:#000; border:1px solid #bdbdb9; overflow:hidden;">
+      <!-- ruling frame -->
+      <div style="position:absolute; inset:16px; border:1px solid #000; pointer-events:none;"></div>
+
+      <div style="position:absolute; inset:16px; display:flex; flex-direction:column; padding:20px 22px;">
+        <!-- header -->
+        <div style="font-family:'Oxanium'; font-weight:700; letter-spacing:3px; font-size:14px;">BEN STANNARD</div>
+        <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; color:#555; text-transform:uppercase; margin-top:4px;">PHOTOGRAPHY — SHEFFIELD, UK</div>
+
+        <!-- photo centered in remaining space -->
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+          <div style="width:100%; aspect-ratio:4/3; background:repeating-linear-gradient(45deg,#ededeb,#ededeb 10px,#e2e2df 10px,#e2e2df 20px); border:1px solid #d0d0cc; display:flex; align-items:center; justify-content:center;">
+            <span style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; color:#9a9a96; text-transform:uppercase;">Featured photograph</span>
+          </div>
+          <div style="text-align:center; margin-top:14px; font-family:'Space Mono',monospace; font-size:10px; line-height:1.7; letter-spacing:0.5px; color:#111;">
+            <div>Ben Stannard</div>
+            <div>Stanage Edge — 53°21′05″N 1°38′08″W</div>
+            <div>Peak District, England, 2025</div>
+          </div>
+        </div>
+
+        <!-- sitemap stacked -->
+        <div style="border-top:1px solid #000; padding-top:12px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px;">
+          <div style="display:flex; flex-wrap:wrap; gap:10px 20px; margin-bottom:12px;">
+            <a href="#2a">SERIES</a>
+            <a href="#2a">ARCHIVE</a>
+            <a href="#2a">INFO</a>
+            <a href="#2a">CONTACT</a>
+          </div>
+          <div style="display:flex; justify-content:space-between; color:#555;">
+            <a href="#2a">INDEX 001</a>
+            <span>2025 →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section style="display:flex; flex-wrap:wrap; align-items:flex-start; gap:64px; padding:24px 64px 64px;">
+
+  <!-- ===================== OPTION 1a — INDEX ===================== -->
+  <article id="1a" style="position:relative;">
+    <div style="position:absolute; top:-34px; left:0; display:flex; gap:12px; align-items:baseline; font-family:'Space Mono',monospace;">
+      <span style="background:#000; color:#fff; font-size:12px; letter-spacing:1px; padding:3px 9px;">1a</span>
+      <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#333;">Index — ruling frame</span>
+    </div>
+
+    <div style="width:1180px; height:840px; background:#ffffff; position:relative; color:#000;">
+      <!-- ruling frame -->
+      <div style="position:absolute; inset:40px; border:1px solid #000;"></div>
+
+      <!-- top header row -->
+      <div style="position:absolute; top:54px; left:56px; right:56px; display:flex; justify-content:space-between; align-items:baseline; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase;">
+        <span style="font-family:'Oxanium'; font-weight:700; letter-spacing:4px; font-size:15px;">BEN STANNARD</span>
+        <span style="color:#555;">PHOTOGRAPHY — SHEFFIELD, UK</span>
+      </div>
+
+      <!-- centered photo -->
+      <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:560px;">
+        <div style="width:100%; aspect-ratio:4/3; background:repeating-linear-gradient(45deg,#ededeb,#ededeb 11px,#e2e2df 11px,#e2e2df 22px); border:1px solid #d0d0cc; display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:3px; color:#9a9a96; text-transform:uppercase;">Featured photograph</span>
+        </div>
+        <div style="text-align:center; margin-top:18px; font-family:'Space Mono',monospace; font-size:11px; line-height:1.7; letter-spacing:0.5px; color:#111;">
+          <div>Ben Stannard</div>
+          <div>Stanage Edge — Coordinates: 53°21′05″N 1°38′08″W</div>
+          <div>Peak District, England, 2025</div>
+        </div>
+      </div>
+
+      <!-- left / right mid labels -->
+      <div style="position:absolute; top:50%; left:56px; transform:translateY(-50%); font-family:'Space Mono',monospace; font-size:12px; letter-spacing:2px;">UNTITLED (PROFILE)</div>
+      <div style="position:absolute; top:50%; right:56px; transform:translateY(-50%); font-family:'Space Mono',monospace; font-size:12px; letter-spacing:2px;">WORK ↗</div>
+
+      <!-- bottom corners / sitemap -->
+      <div style="position:absolute; bottom:54px; left:56px; right:56px; display:flex; justify-content:space-between; align-items:flex-end; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:2px;">
+        <a href="#1a">INDEX 001</a>
+        <div style="display:flex; gap:28px;">
+          <a href="#1a">SERIES</a>
+          <a href="#1a">ARCHIVE</a>
+          <a href="#1a">INFO</a>
+          <a href="#1a">CONTACT</a>
+        </div>
+        <span>2025 →</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== OPTION 1b — MASTHEAD ===================== -->
+  <article id="1b" style="position:relative;">
+    <div style="position:absolute; top:-34px; left:0; display:flex; gap:12px; align-items:baseline; font-family:'Space Mono',monospace;">
+      <span style="background:#000; color:#fff; font-size:12px; letter-spacing:1px; padding:3px 9px;">1b</span>
+      <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#333;">Masthead — editorial</span>
+    </div>
+
+    <div style="width:1180px; height:840px; background:#ffffff; color:#000; padding:52px 56px;">
+      <!-- nav row -->
+      <div style="display:flex; justify-content:space-between; align-items:center; font-family:'Space Mono',monospace; font-size:13px; letter-spacing:1px; padding-bottom:16px; border-bottom:1px solid #000;">
+        <span>Ben Stannard™</span>
+        <span style="flex:1; text-align:center;"><a href="#1b">Information</a></span>
+        <span><a href="#1b">Mail, IG ↗</a></span>
+      </div>
+
+      <!-- giant title -->
+      <h1 style="font-family:'Oxanium'; font-weight:800; font-size:132px; line-height:0.92; letter-spacing:-2px; margin:26px 0 22px;">Field<br>Notes</h1>
+
+      <!-- hero photo full width -->
+      <div style="width:100%; height:452px; background:repeating-linear-gradient(45deg,#ededeb,#ededeb 12px,#e2e2df 12px,#e2e2df 24px); border:1px solid #d0d0cc; display:flex; align-items:flex-end; justify-content:space-between; padding:16px 18px;">
+        <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:#8f8f8b; text-transform:uppercase;">Cover — Peak District, 2025</span>
+        <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:#8f8f8b;">01 / 24</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== OPTION 1c — LEDGER ===================== -->
+  <article id="1c" style="position:relative;">
+    <div style="position:absolute; top:-34px; left:0; display:flex; gap:12px; align-items:baseline; font-family:'Space Mono',monospace;">
+      <span style="background:#000; color:#fff; font-size:12px; letter-spacing:1px; padding:3px 9px;">1c</span>
+      <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#333;">Ledger — dated index</span>
+    </div>
+
+    <div style="width:1180px; height:840px; background:#ffffff; color:#000; display:flex;">
+      <!-- left ledger column -->
+      <div style="width:430px; flex:none; border-right:1px solid #000; padding:44px 40px; display:flex; flex-direction:column;">
+        <h1 style="font-family:'Oxanium'; font-weight:800; font-size:58px; line-height:0.95; letter-spacing:-1px; margin:0 0 6px;">Ben<br>Stannard</h1>
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:1px; color:#555; margin-bottom:34px;">Photographer — Sheffield, UK</div>
+
+        <!-- dated index / sitemap -->
+        <div style="border-top:1px solid #000;">
+          <a href="#1c" style="display:flex; justify-content:space-between; align-items:flex-start; padding:15px 0; border-bottom:1px solid #cfcfcc; font-family:'Space Mono',monospace;">
+            <span style="max-width:250px;"><b style="font-weight:700;">Mar. 15, 2025</b><br><span style="color:#333; font-size:12px; line-height:1.5;">Stanage Edge — Gritstone series</span></span>
+            <span style="font-size:12px; color:#555;">Work 01</span>
+          </a>
+          <a href="#1c" style="display:flex; justify-content:space-between; align-items:flex-start; padding:15px 0; border-bottom:1px solid #cfcfcc; font-family:'Space Mono',monospace;">
+            <span style="max-width:250px;"><b style="font-weight:700;">Apr. 02, 2025</b><br><span style="color:#333; font-size:12px; line-height:1.5;">Kelham Island — Steel city nights</span></span>
+            <span style="font-size:12px; color:#555;">Work 02</span>
+          </a>
+          <a href="#1c" style="display:flex; justify-content:space-between; align-items:flex-start; padding:15px 0; border-bottom:1px solid #cfcfcc; font-family:'Space Mono',monospace;">
+            <span style="max-width:250px;"><b style="font-weight:700;">Jun. 21, 2025</b><br><span style="color:#333; font-size:12px; line-height:1.5;">Mam Tor — Long exposures</span></span>
+            <span style="font-size:12px; color:#555;">Work 03</span>
+          </a>
+          <a href="#1c" style="display:flex; justify-content:space-between; align-items:flex-start; padding:15px 0; border-bottom:1px solid #000; font-family:'Space Mono',monospace;">
+            <span style="max-width:250px;"><b style="font-weight:700;">Aug. 08, 2025</b><br><span style="color:#333; font-size:12px; line-height:1.5;">Portraits — Commissions, 2025</span></span>
+            <span style="font-size:12px; color:#555;">Work 04</span>
+          </a>
+        </div>
+
+        <div style="margin-top:auto; display:flex; gap:12px; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:1px;">
+          <a href="#1c" style="flex:1; text-align:center; border:1px solid #000; padding:10px 0;">Archive</a>
+          <a href="#1c" style="flex:1; text-align:center; border:1px solid #000; padding:10px 0;">Instagram ↗</a>
+        </div>
+      </div>
+
+      <!-- right photo -->
+      <div style="flex:1; background:repeating-linear-gradient(45deg,#ededeb,#ededeb 13px,#e2e2df 13px,#e2e2df 26px); display:flex; align-items:flex-end; justify-content:space-between; padding:20px 22px;">
+        <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:#8f8f8b; text-transform:uppercase;">Featured — Stanage Edge, 2025</span>
+        <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:#8f8f8b;">↗</span>
+      </div>
+    </div>
+  </article>
+
+</section>
+</x-dc>
+</body>
+</html>

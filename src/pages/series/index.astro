@@ -1,0 +1,122 @@
+---
+import { getCollection } from 'astro:content';
+import Frame from '../../layouts/Frame.astro';
+
+// The design holds four rows at most; anything beyond that is a sign the page
+// needs rethinking rather than silently growing.
+const series = (await getCollection('series'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+---
+
+<Frame
+  title="Series — Ben Stannard"
+  description="Photographic series by Ben Stannard, Sheffield."
+  indexLabel={`${series.length} ENTRIES`}
+>
+  <h1 class="page-label">Series</h1>
+
+  <ol class="ledger">
+    {
+      series.map((entry) => (
+        <li>
+          <a class="row" href={`/series/${entry.id}`}>
+            <span class="row__main">
+              <b class="row__title">{entry.data.title}</b>
+              <span class="row__summary">{entry.data.summary}</span>
+            </span>
+            <span class="row__meta">
+              SERIES {entry.data.index} — {entry.data.year}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</Frame>
+
+<style>
+  .ledger {
+    list-style: none;
+    margin: 0 0 56px;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+    max-width: 720px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    font-family: var(--font-mono);
+  }
+
+  .ledger li:last-child .row {
+    border-bottom: 1px solid var(--ink);
+  }
+
+  /* The whole row is the target; underlining only the title keeps the hover
+     rule from dragging across the summary and the metadata. */
+  .row:hover {
+    text-decoration: none;
+  }
+
+  .row:hover .row__title,
+  .row:focus-visible .row__title {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .row__main {
+    max-width: 420px;
+  }
+
+  .row__title {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .row__summary {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .row__meta {
+    flex: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    padding-top: 2px;
+  }
+
+  @media (max-width: 480px) {
+    .ledger {
+      margin-bottom: 32px;
+    }
+
+    .row {
+      gap: 16px;
+      padding: 15px 0;
+    }
+
+    .row__title {
+      font-size: 13px;
+    }
+
+    .row__summary {
+      font-size: 11px;
+    }
+
+    .row__meta {
+      font-size: 11px;
+    }
+  }
+</style>

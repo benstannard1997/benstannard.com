@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ben-stannard-portfolio",
+  "compatibility_date": "2026-07-17",
+  // Static-assets-only Worker: no `main` entrypoint, Cloudflare serves ./dist directly.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

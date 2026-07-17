@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import Frame from '../../layouts/Frame.astro';
+import Carousel from '../../components/Carousel.astro';
+
+export const getStaticPaths = (async () => {
+  const series = await getCollection('series');
+  return series.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, index, year, location, summary, images } = entry.data;
+---
+
+<Frame
+  title={`${title} — Ben Stannard`}
+  description={summary}
+  indexLabel={`SERIES ${index}`}
+  indexHref="/series"
+  yearLabel={`${year} →`}
+>
+  <header class="head">
+    <h1 class="head__title">{title}</h1>
+    <p class="head__meta label label--muted">
+      {location ? `${location} — ${year}` : year}
+    </p>
+  </header>
+
+  <Carousel images={images} label={title} />
+
+  <div class="prose">
+    <Content />
+  </div>
+</Frame>
+
+<style>
+  .head {
+    margin: 56px 0 24px;
+    text-align: center;
+  }
+
+  .head__title {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .head__meta {
+    margin: 8px 0 0;
+  }
+
+  .prose {
+    margin: 48px auto 56px;
+  }
+
+  @media (max-width: 480px) {
+    .head {
+      margin: 32px 0 20px;
+    }
+
+    .head__title {
+      font-size: 13px;
+    }
+
+    .prose {
+      margin: 32px auto;
+    }
+  }
+</style>

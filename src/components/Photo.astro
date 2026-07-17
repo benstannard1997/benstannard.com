@@ -1,0 +1,112 @@
+---
+interface Props {
+  src: string | null;
+  alt: string;
+  /** CSS aspect-ratio for the placeholder and for cover-fitted images. */
+  ratio?: string;
+  /** `contain` letterboxes — right for mixed-aspect Flickr photos in a carousel. */
+  fit?: 'cover' | 'contain';
+  loading?: 'lazy' | 'eager';
+  /** Text inside the stripe placeholder. Ignored once `src` is set. */
+  placeholderLabel?: string;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  ratio = '4 / 3',
+  fit = 'cover',
+  loading = 'lazy',
+  placeholderLabel = 'Featured photograph',
+  class: className,
+} = Astro.props;
+---
+
+{
+  src ? (
+    <img
+      class:list={['photo', `photo--${fit}`, className]}
+      src={src}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      style={fit === 'cover' ? `aspect-ratio: ${ratio};` : undefined}
+    />
+  ) : (
+    /* Prototype placeholder. Both it and its border disappear once `src` is set. */
+    <div class:list={['placeholder', className]} style={`aspect-ratio: ${ratio};`} role="img" aria-label={alt}>
+      <span class="placeholder__label">{placeholderLabel}</span>
+    </div>
+  )
+}
+
+<style>
+  .photo {
+    width: 100%;
+    /* A photograph fading in over white is the one motion the handoff allows. */
+    animation: photo-in 400ms ease-out both;
+  }
+
+  .photo--cover {
+    object-fit: cover;
+  }
+
+  .photo--contain {
+    object-fit: contain;
+  }
+
+  .placeholder {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--ph-border);
+    background: repeating-linear-gradient(
+      45deg,
+      var(--ph-stripe-a),
+      var(--ph-stripe-a) 11px,
+      var(--ph-stripe-b) 11px,
+      var(--ph-stripe-b) 22px
+    );
+  }
+
+  .placeholder__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--ph-label);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 480px) {
+    .placeholder {
+      background: repeating-linear-gradient(
+        45deg,
+        var(--ph-stripe-a),
+        var(--ph-stripe-a) 10px,
+        var(--ph-stripe-b) 10px,
+        var(--ph-stripe-b) 20px
+      );
+    }
+
+    .placeholder__label {
+      font-size: 10px;
+    }
+  }
+
+  @keyframes photo-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo {
+      animation: none;
+    }
+  }
+</style>
