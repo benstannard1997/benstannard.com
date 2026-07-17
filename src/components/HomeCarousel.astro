@@ -1,0 +1,201 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Photo from './Photo.astro';
+
+interface Props {
+  photos: CollectionEntry<'home'>[];
+}
+
+const { photos } = Astro.props;
+const hasMultiple = photos.length > 1;
+---
+
+<div class="home-carousel" data-home-carousel>
+  <div class="home-carousel__frame">
+    {
+      hasMultiple && (
+        <button type="button" class="arrow arrow--prev" data-prev aria-label="Previous photograph">
+          ←
+        </button>
+      )
+    }
+
+    <div class="home-carousel__stage">
+      {
+        photos.map((photo, i) => (
+          <figure class="slide" data-slide data-index={photo.data.index} hidden={i !== 0}>
+            <a class="slide__link" href="/series" aria-label="View work">
+              <Photo src={photo.data.image.src} alt={photo.data.image.alt} loading={i === 0 ? 'eager' : 'lazy'} />
+            </a>
+            <figcaption class="caption">
+              <div>{photo.data.caption.author}</div>
+              <div class="caption__location">{photo.data.caption.location}</div>
+              <div class="caption__location caption__location--short">{photo.data.caption.locationShort}</div>
+              <div>{photo.data.caption.place}</div>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    {
+      hasMultiple && (
+        <button type="button" class="arrow arrow--next" data-next aria-label="Next photograph">
+          →
+        </button>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .home-carousel {
+    display: inline-block;
+  }
+
+  /* Kept tight: this assembly is centred on the page, and the wider it gets
+     the closer its arrows creep toward the "UNTITLED (PROFILE)" / "WORK ↗"
+     mid-edge labels sharing this same vertical line. */
+  .home-carousel__frame {
+    display: grid;
+    grid-template-columns: auto 560px auto;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .home-carousel__stage {
+    grid-column: 2;
+    width: 100%;
+  }
+
+  .arrow {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    line-height: 1;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 10px 4px;
+    cursor: pointer;
+  }
+
+  .arrow:hover,
+  .arrow:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .slide {
+    margin: 0;
+  }
+
+  .slide[hidden] {
+    display: none;
+  }
+
+  .slide__link:hover {
+    text-decoration: none;
+  }
+
+  .caption {
+    text-align: center;
+    margin-top: 18px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.7;
+    letter-spacing: 0.5px;
+    color: var(--caption);
+  }
+
+  .caption__location--short {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .home-carousel {
+      display: block;
+      width: 100%;
+    }
+
+    .home-carousel__frame {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .home-carousel__stage {
+      grid-column: 1;
+    }
+
+    /* No room beside a full-width mobile photo — arrows drop below it,
+       side by side, same spot the series carousel puts them at this width. */
+    .arrow {
+      grid-row: 2;
+      font-size: 14px;
+      padding: 6px 0;
+    }
+
+    .arrow--prev {
+      grid-column: 1;
+      justify-self: start;
+    }
+
+    .arrow--next {
+      grid-column: 1;
+      justify-self: end;
+    }
+
+    .home-carousel__frame:has(.arrow) {
+      grid-template-rows: auto auto;
+    }
+
+    .caption {
+      margin-top: 14px;
+      font-size: 10px;
+    }
+
+    .caption__location {
+      display: none;
+    }
+
+    .caption__location--short {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-home-carousel]').forEach((root) => {
+    const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-next]');
+    // Lives in the Frame footer, outside this component — the one piece of
+    // page chrome that has to track whichever photo is currently showing.
+    const indexLabel = document.querySelector<HTMLElement>('[data-index-label]');
+    if (slides.length === 0) return;
+
+    let index = 0;
+
+    const show = (to: number) => {
+      index = (to + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        slide.hidden = i !== index;
+      });
+      if (indexLabel) indexLabel.textContent = `INDEX ${slides[index].dataset.index}`;
+    };
+
+    // A different hero photo per visit. Without JS, the first slide rendered
+    // server-side (and its matching "INDEX 001" label) stands as the fallback.
+    show(Math.floor(Math.random() * slides.length));
+
+    prev?.addEventListener('click', () => show(index - 1));
+    next?.addEventListener('click', () => show(index + 1));
+
+    if (slides.length > 1) {
+      document.addEventListener('keydown', (event) => {
+        if (event.metaKey || event.ctrlKey || event.altKey) return;
+        if (event.key === 'ArrowLeft') show(index - 1);
+        if (event.key === 'ArrowRight') show(index + 1);
+      });
+    }
+  });
+</script>
