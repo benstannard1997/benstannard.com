@@ -81,7 +81,13 @@ const isCurrent = (href: string) => path === href;
         <div class="footer__index label">
           {
             indexLabel &&
-              (indexHref ? <a href={indexHref}>{indexLabel}</a> : <span>{indexLabel}</span>)
+              (indexHref ? (
+                <a href={indexHref} data-index-label>
+                  {indexLabel}
+                </a>
+              ) : (
+                <span data-index-label>{indexLabel}</span>
+              ))
           }
         </div>
         <nav class="footer__nav label" aria-label="Primary">

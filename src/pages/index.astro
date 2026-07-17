@@ -1,29 +1,28 @@
 ---
+import { getCollection } from 'astro:content';
 import Frame from '../layouts/Frame.astro';
-import Photo from '../components/Photo.astro';
-import { featured } from '../data/site';
+import HomeCarousel from '../components/HomeCarousel.astro';
 
-const { photo, caption, index } = featured;
+// The design holds four hero photos at most.
+const photos = (await getCollection('home'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+
+// Server-rendered fallback for when JS is off — the client script picks a
+// random one of these on load and takes over from there.
+const first = photos[0];
 ---
 
 <Frame
   title="Ben Stannard — Photography, Sheffield UK"
-  indexLabel={`INDEX ${index}`}
+  indexLabel={`INDEX ${first.data.index}`}
   indexHref="/series"
   midLeft={{ label: 'UNTITLED (PROFILE)', href: '/about' }}
   midRight={{ label: 'WORK ↗', href: '/series' }}
 >
-  <figure class="featured">
-    <a class="featured__link" href="/series" aria-label={`${photo.title} — view work`}>
-      <Photo src={photo.src} alt={photo.alt} loading="eager" />
-    </a>
-    <figcaption class="caption">
-      <div>{caption.author}</div>
-      <div class="caption__location">{caption.location}</div>
-      <div class="caption__location caption__location--short">{caption.locationShort}</div>
-      <div>{caption.place}</div>
-    </figcaption>
-  </figure>
+  <div class="featured">
+    <HomeCarousel photos={photos} />
+  </div>
 </Frame>
 
 <style>
@@ -34,7 +33,6 @@ const { photo, caption, index } = featured;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 560px;
     max-width: 100%;
     margin: 0;
   }
@@ -43,24 +41,6 @@ const { photo, caption, index } = featured;
      letting the header and footer collide with the photograph. */
   :global(.main:has(.featured)) {
     min-height: 520px;
-  }
-
-  .featured__link:hover {
-    text-decoration: none;
-  }
-
-  .caption {
-    text-align: center;
-    margin-top: 18px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    line-height: 1.7;
-    letter-spacing: 0.5px;
-    color: var(--caption);
-  }
-
-  .caption__location--short {
-    display: none;
   }
 
   @media (max-width: 480px) {
@@ -75,19 +55,6 @@ const { photo, caption, index } = featured;
 
     :global(.main:has(.featured)) {
       min-height: 0;
-    }
-
-    .caption {
-      margin-top: 14px;
-      font-size: 10px;
-    }
-
-    .caption__location {
-      display: none;
-    }
-
-    .caption__location--short {
-      display: block;
     }
   }
 </style>

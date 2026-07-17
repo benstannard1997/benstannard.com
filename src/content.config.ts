@@ -35,4 +35,30 @@ const series = defineCollection({
   }),
 });
 
-export const collections = { series };
+const home = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/home' }),
+  schema: z.object({
+    /** Zero-padded, shown as "INDEX 001" in the footer. */
+    index: z.string(),
+    year: z.string(),
+    /** Lower sorts first; also decides which photo is default when JS is off. */
+    order: z.number(),
+    image: z.object({
+      /**
+       * Flickr direct image URL, e.g. https://live.staticflickr.com/…_b.jpg
+       * `null` renders the stripe placeholder, as in the prototype.
+       */
+      src: z.url().nullable(),
+      alt: z.string(),
+    }),
+    caption: z.object({
+      author: z.string(),
+      /** Desktop shows the full line; mobile shows the short one. */
+      location: z.string(),
+      locationShort: z.string(),
+      place: z.string(),
+    }),
+  }),
+});
+
+export const collections = { series, home };
