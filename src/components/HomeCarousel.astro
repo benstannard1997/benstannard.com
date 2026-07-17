@@ -58,12 +58,13 @@ const hasMultiple = photos.length > 1;
     display: inline-block;
   }
 
-  /* Kept tight: this assembly is centred on the page, and the wider it gets
-     the closer its arrows creep toward the "UNTITLED (PROFILE)" / "WORK ↗"
-     mid-edge labels sharing this same vertical line. */
+  /* This assembly is centred on the page, and the wider it gets the closer its
+     arrows creep toward the "UNTITLED (PROFILE)" / "WORK ↗" mid-edge labels
+     sharing this same vertical line — 610px is as big as the photo gets before
+     that collides with "UNTITLED (PROFILE)", the longer of the two. */
   .home-carousel__frame {
     display: grid;
-    grid-template-columns: auto 560px auto;
+    grid-template-columns: auto 610px auto;
     align-items: center;
     gap: 10px;
   }
