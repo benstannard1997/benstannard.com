@@ -16,6 +16,7 @@ interface Props {
 
 const { images, label } = Astro.props;
 const total = String(images.length).padStart(2, '0');
+const hasMultiple = images.length > 1;
 ---
 
 <section
@@ -24,49 +25,59 @@ const total = String(images.length).padStart(2, '0');
   aria-roledescription="carousel"
   aria-label={`${label} — photographs`}
 >
-  <div class="carousel__stage">
+  <div class="carousel__frame">
     {
-      images.map((image, i) => (
-        <figure class="slide" data-slide hidden={i !== 0}>
-          <div class="slide__image">
-            <Photo
-              src={image.src}
-              alt={image.alt}
-              fit="contain"
-              loading={i === 0 ? 'eager' : 'lazy'}
-              placeholderLabel={`Photograph ${String(i + 1).padStart(2, '0')}`}
-            />
-          </div>
-          <figcaption class="slide__caption">
-            <span class="slide__title">
-              {image.href ? (
-                <a href={image.href} rel="noopener" target="_blank">
-                  {image.title} ↗
-                </a>
-              ) : (
-                image.title
-              )}
-            </span>
-            {image.description && <span class="slide__description">{image.description}</span>}
-          </figcaption>
-        </figure>
-      ))
+      hasMultiple && (
+        <button type="button" class="arrow arrow--prev" data-prev aria-label="Previous photograph">
+          ←
+        </button>
+      )
+    }
+
+    <div class="carousel__stage">
+      {
+        images.map((image, i) => (
+          <figure class="slide" data-slide hidden={i !== 0}>
+            <div class="slide__image">
+              <Photo
+                src={image.src}
+                alt={image.alt}
+                fit="contain"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                placeholderLabel={`Photograph ${String(i + 1).padStart(2, '0')}`}
+              />
+            </div>
+            <figcaption class="slide__caption">
+              <span class="slide__title">
+                {image.href ? (
+                  <a href={image.href} rel="noopener" target="_blank">
+                    {image.title} ↗
+                  </a>
+                ) : (
+                  image.title
+                )}
+              </span>
+              {image.description && <span class="slide__description">{image.description}</span>}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    {
+      hasMultiple && (
+        <button type="button" class="arrow arrow--next" data-next aria-label="Next photograph">
+          →
+        </button>
+      )
     }
   </div>
 
   {
-    images.length > 1 && (
-      <div class="controls label">
-        <button type="button" data-prev>
-          ← PREV
-        </button>
-        <p class="counter" aria-live="polite">
-          <span data-current>01</span> / {total}
-        </p>
-        <button type="button" data-next>
-          NEXT →
-        </button>
-      </div>
+    hasMultiple && (
+      <p class="counter label" aria-live="polite">
+        <span data-current>01</span> / {total}
+      </p>
     )
   }
 </section>
@@ -79,11 +90,54 @@ const total = String(images.length).padStart(2, '0');
     width: 100%;
   }
 
-  /* Matches the homepage's 560px featured photo, so a series reads as the same
-     picture in the same place — and so the controls stay above the fold. */
-  .carousel__stage {
+  /* Prev/next sit either side of the photo on desktop, so the image itself can
+     run bigger than the homepage's 560px featured photo. `grid-column: 2` is
+     set explicitly on the stage so it still lands in the centre track when a
+     single-image series renders no arrows at all. */
+  .carousel__frame {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 28px;
     width: 100%;
-    max-width: 560px;
+    max-width: 880px;
+  }
+
+  .carousel__stage {
+    grid-column: 2;
+    width: 100%;
+  }
+
+  .arrow {
+    grid-row: 1;
+    font-family: var(--font-mono);
+    font-size: 22px;
+    line-height: 1;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .arrow--prev {
+    grid-column: 1;
+  }
+
+  .arrow--next {
+    grid-column: 3;
+  }
+
+  .arrow:hover,
+  .arrow:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .counter {
+    text-align: center;
+    margin: 18px 0 0;
+    color: var(--muted);
   }
 
   .slide {
@@ -132,45 +186,46 @@ const total = String(images.length).padStart(2, '0');
     color: var(--muted);
   }
 
-  .controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 24px;
-    width: 100%;
-    max-width: 560px;
-    margin-top: 22px;
-  }
-
-  .controls button {
-    font: inherit;
-    letter-spacing: inherit;
-    color: inherit;
-    background: none;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .controls button:hover,
-  .controls button:focus-visible {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .counter {
-    margin: 0;
-    color: var(--muted);
-  }
-
   @media (max-width: 480px) {
     .slide__caption {
       margin-top: 14px;
       font-size: 10px;
     }
 
-    .controls {
-      margin-top: 18px;
+    /* Not enough width beside a full-bleed mobile photo for side arrows — drop
+       them below the image instead, side by side either end of the row, the
+       same spot they held before this layout split at 480px. */
+    .carousel__frame {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* `order` (not DOM position) decides placement: the stage claims the
+       first line on its own via flex-basis 100%, then both arrows share the
+       line below it, which `space-between` spreads to either edge. */
+    .carousel__stage {
+      order: 1;
+      flex: 1 1 100%;
+    }
+
+    .arrow--prev {
+      order: 2;
+    }
+
+    .arrow--next {
+      order: 3;
+    }
+
+    .arrow {
+      font-size: 14px;
+      padding: 6px 0;
+    }
+
+    .counter {
+      margin-top: 12px;
     }
   }
 </style>
