@@ -66,7 +66,7 @@ Essentially **static**. No client state required for the homepage as designed. I
 - Photo list data (see below). Otherwise none.
 
 ## Content / Data Model
-Each photograph entry needs: `image` (asset), `title` (e.g. "Untitled (Profile)"), `caption` lines (`author`, `location` + `coordinates`, `place, year`), `index` (e.g. "001"), and `year`. The homepage renders one such entry as the featured image.
+Each photograph entry needs: `image` (asset), `title` (e.g. "Untitled (Profile)"), `caption` lines (`location` + `coordinates`, `place, year`), `index` (e.g. "001"), and `year`. The homepage renders one such entry as the featured image.
 
 ## Design Tokens
 

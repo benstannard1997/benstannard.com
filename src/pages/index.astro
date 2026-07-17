@@ -21,7 +21,6 @@ const photos = raw.map((entry, i) => {
       alt: data.image?.alt || 'Featured photograph',
     },
     caption: {
-      author: data.caption?.author || 'Ben Stannard',
       title: data.caption?.title || '',
       place: data.caption?.place || data.year || '',
     },

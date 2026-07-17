@@ -4,7 +4,7 @@ import Photo from './Photo.astro';
 interface HomePhoto {
   index: string;
   image: { src: string | null; alt: string };
-  caption: { author: string; title: string; place: string };
+  caption: { title: string; place: string };
 }
 
 interface Props {
@@ -43,7 +43,6 @@ const hasMultiple = photos.length > 1;
               />
             </a>
             <figcaption class="caption">
-              <div>{photo.caption.author}</div>
               {photo.caption.title && <div>{photo.caption.title}</div>}
               {photo.caption.place && <div>{photo.caption.place}</div>}
             </figcaption>
