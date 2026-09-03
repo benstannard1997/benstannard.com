@@ -1,5 +1,5 @@
 ---
-title: Series 4
+title: Series 4 - Experimental
 index: "04"
 year: "2026"
 order: 4
