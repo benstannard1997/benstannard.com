@@ -4,6 +4,9 @@ index: "02"
 year: "2026"
 order: 2
 summary: The Furnace
+
+
+
 images:
  - src: https://live.staticflickr.com/65535/53550893001_83788e4a95_b.jpg
     title: Furnace 1
