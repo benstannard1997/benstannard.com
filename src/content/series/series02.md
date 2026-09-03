@@ -1,13 +1,9 @@
 ---
-const series = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/series" }),
-});
-title: Series 2 - Furnace
+title: Series 2
 index: "02"
 year: "2026"
-location: .optional()
 order: 2
-summary: .optional()
+summary: The Furnace
 images:
  - src: https://live.staticflickr.com/65535/53550893001_83788e4a95_b.jpg
     title: Furnace 1
@@ -17,4 +13,6 @@ images:
     title: Furnace 3
  - src: https://live.staticflickr.com/65535/55166369221_91108f5d7a_b.jpg
     title: Furnace 4
+---
+
 
