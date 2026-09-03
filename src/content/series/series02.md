@@ -2,9 +2,9 @@
 title: Series 2 - Furnace
 index: "02"
 year: "2026"
-location: The Furnace
+location: .optional()
 order: 2
-summary: -
+summary: - .optional()
 images:
  - src: https://live.staticflickr.com/65535/53550893001_83788e4a95_b.jpg
     title: Furnace 1
