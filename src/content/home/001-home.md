@@ -4,7 +4,7 @@ year: "2026"
 order: 1
 image:
   src: https://live.staticflickr.com/65535/55169448667_881edbef41_h.jpg
-  alt: Landing Stage
+  alt: 1
 caption:
-  title: Landing Stage
+  title: 1
 ---
