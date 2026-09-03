@@ -4,7 +4,7 @@ year: "2025"
 order: 2
 image:
   src: https://live.staticflickr.com/65535/55400185399_88fc40a974_h.jpg
-  alt: Earth Eater
+  alt: 2
 caption:
-  title: Earth Eater
+  title: 2
 ---
