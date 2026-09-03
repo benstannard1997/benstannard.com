@@ -1,27 +1,21 @@
 ---
-title: Series 1
-index: "01"
-year: "2025"
-location: LOCATION 1
-order: 1
-summary: Edges and boulders along the eastern moors, shot over one winter.
-# Set `src` to a Flickr direct image URL — https://live.staticflickr.com/<server>/<id>_<secret>_b.jpg
-# Leave it as `null` and the stripe placeholder from the prototype renders instead.
+title: "Series 1 - Last Dragons of Wales"
+index: "02"
+year: "2026"
+order: 2
+summary: "The Furnace"
 images:
-  - src: null
-    alt: Gritstone edge at first light
-    title: First Light, Stanage
-    description: Six a.m., minus two, the whole edge to myself.
-  - src: null
-    alt: Boulder field below the edge
-    title: Boulder Field
-    description: The scatter below the edge, left there by ice.
-  - src: null
-    alt: Weathered rock detail
-    title: Weathering No. 3
-  - src: null
-    alt: Moorland under low cloud
-    title: Low Cloud, Burbage
----
+  - src: https://live.staticflickr.com/65535/53550893001_83788e4a95_b.jpg
+    title: "Furnace 1"
+  - src: https://live.staticflickr.com/65535/53551228664_77c613645d_b.jpg
+    title: "Furnace 2"
+  - src: https://live.staticflickr.com/65535/55055896526_a4fdcd42f1_b.jpg
+    title: "Furnace 3"
+  - src: https://live.staticflickr.com/65535/55166369221_91108f5d7a_b.jpg
+    title: "Furnace 4"
+---   
 
-ADD DESCRIPTION HERE XXXXXXXXXX
+
+The last dragons of Wales are on their knees and their dying breath...
+
+Port Talbot is a small town in South Wales East of Swansea and it has held host to one of the largest iron and steel works in Europe. It's one of the last. Of our modern age that demands so much, the sprawling iron works are one of the last two of it's kind in the UK. For the past 10 years I've become obsessed. Anthropomorphising the most violent elements of these processes into things beyond the pale. The cosmic horror of our very last dying industrial breaths as a 1st world super power are taking place right now as I type this. At their most vulnerable, while the throttle is to the floor and nothing is held back, fire spits in every direction. Stare them in the eye as they leave our world for the next.
