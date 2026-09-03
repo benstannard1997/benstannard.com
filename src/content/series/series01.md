@@ -19,6 +19,12 @@ images:
     title: "Carcass 2"
   - src: https://live.staticflickr.com/65535/55055893786_020868b8c4_b.jpg
     title: "Landing Stage"
+  - src: https://live.staticflickr.com/65535/53550026717_2e59f97c6c_b.jpg
+    title: "Basic Slag Conveyor"
+  - src: https://live.staticflickr.com/65535/53550028072_03dc5f7d95_b.jpg
+    title: "Earthmover"
+  - src: https://live.staticflickr.com/65535/53551087748_1a1ff8b0aa_b.jpg
+    title: "Flare Stack"
 ---   
 
 
