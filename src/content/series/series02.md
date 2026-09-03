@@ -6,10 +6,10 @@ location: LOCATION 2
 order: 2
 summary: Sheffield after dark, mostly Kelham Island, mostly on foot.
 images:
-  - src: null
+  - src: 
     alt: Wet street under sodium light
-    title: Sodium
-    description: The last of the old lamps, before the council swapped them out.
+    title: Series 2 // 1
+    description: 
   - src: null
     alt: Foundry wall at night
     title: Foundry Wall
@@ -19,4 +19,3 @@ images:
     description: Long exposure, twenty seconds, no wind.
 ---
 
-ADD DESCRIPTION HERE XXXXXXXXXXX
