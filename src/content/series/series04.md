@@ -21,4 +21,3 @@ images:
     title: Manifold 7
 ---
 
-ADD DESCRIPTION HERE XXXXXXXXXXX
