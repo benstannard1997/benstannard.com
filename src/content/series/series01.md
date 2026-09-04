@@ -1,9 +1,9 @@
 ---
 title: "Series 1 - Last Dragons of Wales"
-index: "02"
+index: "01"
 year: "2026"
-order: 2
-summary: "The Furnace"
+order: 1
+summary: "Welsh Steel"
 images:
   - src: https://live.staticflickr.com/65535/53551088498_2e6cf4c020_b.jpg
     title: "Vortex Corridor"
