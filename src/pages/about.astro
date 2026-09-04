@@ -1,13 +1,10 @@
 ---
-import Frame from '../layouts/Frame.astro';
-import Photo from '../components/Photo.astro';
-
-// Placeholder copy — for Ben to replace.
-const details = [
-  { term: 'Based', value: 'Sheffield, UK' },
-  { term: 'Works', value: 'Landscape, Street, Experimental' },
-];
----
+image:
+  src: /some-image.jpg
+  alt: "Some alt text"      # ← was unquoted, parsed as a number
+caption:
+  title: "Some title"       # ← same
+---   
 
 <Frame
   title="About — Ben Stannard"
