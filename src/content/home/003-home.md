@@ -4,7 +4,7 @@ year: "2025"
 order: 3
 image:
   src: https://live.staticflickr.com/65535/53551447606_6d8e18d992_h.jpg
-  alt: 3
+  alt: "3"
 caption:
-  title: 3
+  title: "3"
 ---
