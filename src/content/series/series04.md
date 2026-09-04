@@ -20,4 +20,3 @@ images:
   - src: https://live.staticflickr.com/65535/55370235228_b355ca2bae_h.jpg
     title: Manifold 7
 ---
-
