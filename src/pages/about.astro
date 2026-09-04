@@ -1,3 +1,20 @@
+---
+import Frame from "../components/Frame.astro";
+import Photo from "../components/Photo.astro";
+
+const details = [
+  { term: "Location", value: "Somewhere" },
+  { term: "Email", value: "you@example.com" },
+  // ...add your actual details here
+];
+---
+<Frame
+  title="About — Ben Stannard"
+  description="Steel, Coal and the inevitable heat death of the universe"
+  indexLabel="PROFILE"
+>
+  <!-- ...rest of your file stays the same... -->
+</Frame>   
 <Frame
   title="About — Ben Stannard"
   description="Steel, Coal and the inevitable heat death of the universe"
